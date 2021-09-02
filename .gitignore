@@ -1,0 +1,9 @@
+# cargo builds
+/target
+
+#inteliJ stuff
+.idea/
+*.iml
+
+#html slides
+support/*.html
