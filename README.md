@@ -15,5 +15,5 @@ Les slides sont écrites en markdown dans le readme du dossier `support`.
 Pour un slide deck HTML avec pandoc : 
 
 ```shell
-pandoc -t revealjs -V revealjs-url=https://unpkg.com/reveal.js@3.9.2/ -s README.md -o slides.html 
+pandoc -t revealjs -V revealjs-url=https://unpkg.com/reveal.js@3.9.2/ -s support/README.md -o support/slides.html 
 ```
