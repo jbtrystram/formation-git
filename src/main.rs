@@ -1,3 +1,7 @@
+mod sentences;
+
+use crate::sentences::{Language, Sentences};
+
 use clap::{AppSettings, Clap};
 
 /// This program will help you with small talk when travelling.
@@ -5,9 +9,10 @@ use clap::{AppSettings, Clap};
 #[clap(version = "1.0", author = "JB Trystram")]
 #[clap(setting = AppSettings::ColoredHelp)]
 struct Opts {
-    /// A level of verbosity, and can be used multiple times
     #[clap(subcommand)]
     subcmd: SubCommand,
+    #[clap(short, long, global = true, default_value = "English")]
+    country: Language,
 }
 
 #[derive(Clap, Debug)]
@@ -25,23 +30,23 @@ enum SubCommand {
 fn main() {
     let opts: Opts = Opts::parse();
 
-    // Some debugging
-    // println!("Using subcommand : {:?}", opts.subcmd);
+    // instanciate the sentences
+    let sentences = Sentences::new(opts.country);
 
     // You can handle information about subcommands by requesting their matches by name
     // (as below), requesting just the name used, or both at the same time
     match opts.subcmd {
         SubCommand::Hello => {
-            println!("Hello ! I am a traveller ! How are you ?");
+            println!("{}", sentences.hello);
         }
         SubCommand::Bye => {
-            println!("See you later ! Bye bye !");
-        },
+            println!("{}", sentences.bye);
+        }
         SubCommand::Food => {
-            println!("I am hungry ! Is there a good restaurant around ?");
-        },
+            println!("{}", sentences.food);
+        }
         SubCommand::Thanks => {
-            println!("Thanks you so much for helping me !");
+            println!("{}", sentences.thanks);
         }
     }
 }
