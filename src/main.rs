@@ -36,10 +36,10 @@ fn main() {
         }
         SubCommand::Bye => {
             println!("See you later ! Bye bye !");
-        },
+        }
         SubCommand::Food => {
             println!("I am hungry ! Is there a good restaurant around ?");
-        },
+        }
         SubCommand::Thanks => {
             println!("Thanks you so much for helping me !");
         }
