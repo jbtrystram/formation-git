@@ -288,6 +288,9 @@ Rien n'est jamais perdu avec git (même si rebase avec des commits droppés).
 
  - cherry pick (range of commits)
  - submodules
+ - hooks
+ - conventionnal commits
+
 
 ## Github: 
 - pull requests
