@@ -16,6 +16,10 @@ enum SubCommand {
     Hello,
     /// Use it when you need to leave
     Bye,
+    /// ask where you can eat
+    Food,
+    /// Say thanks if someone was nice
+    Thanks,
 }
 
 fn main() {
@@ -28,10 +32,16 @@ fn main() {
     // (as below), requesting just the name used, or both at the same time
     match opts.subcmd {
         SubCommand::Hello => {
-            println!("Hello ! How are you ?");
+            println!("Hello ! I am a traveller ! How are you ?");
         }
         SubCommand::Bye => {
             println!("See you later ! Bye bye !");
+        },
+        SubCommand::Food => {
+            println!("I am hungry ! Is there a good restaurant around ?");
+        },
+        SubCommand::Thanks => {
+            println!("Thanks you so much for helping me !");
         }
     }
 }
