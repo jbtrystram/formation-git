@@ -340,3 +340,7 @@ fn deserialize_endpoint(details: &Value) -> (Option<String>, String) {
     let port = port.map_or("".to_string(), |p| format!(":{}", p));
     (host, port)
 }
+
+
+this defineitely won't compile !!!!
+Cargo.toml is missing anyway, what do you expect ?
