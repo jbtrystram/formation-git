@@ -2,9 +2,10 @@
 
 # Application Rust
 
-L'application <name> ici sert uniquement a démontrer et a expérimenter différentes fonctionnalités de git.
+L'application traveller ici sert uniquement à démontrer et à expérimenter 
+avec différentes fonctionnalités de git.
 
-Pour compiler et lancer: 
+Pour compiler et lancer : 
 ```shell
 cargo run 
 ```
