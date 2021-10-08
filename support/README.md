@@ -1,48 +1,52 @@
-% Formation Git
-% Jb Trystram
-% 10-08-2021
-
+---
+type: slide
+slideOptions:
+transition: slide
+theme: Black
+  
+---
 
 # Collaborer avec Git
 
 Avec du rust en bonus !
 
-![example-gittree](./images/intro.png)
-
-
-# Introduction
-
-Git : "Magie noire pour voyager dans le temps en ajoutant ou soustrayant des fichiers textes a d'autres fichiers textes"
-  
-  - Conserver tout l'historique d'évolution d'une base de code.
-  - Travailler sur un ou plusieurs changements en parrallèle sans casser le projet.
-  - Synchroniser tout ça a plusieurs
-
-=> Objectif : travailler a plusieurs sur la meme base de code, simplement et sans risques
-
+![](https://github.com/jbtrystram/formation-git/raw/main/support/images/intro.png)
 
 ---
-# level : Git sorcerer skills
-A priori rien de nouveau ?
+
+# Git ?
+
+
+> “Magie noire pour voyager dans le temps en ajoutant ou soustrayant des fichiers textes a d'autres fichiers textes”
+
+<span>- Conserver tout l'historique d'évolution d'une base de code.<!-- .element: class="fragment" data-fragment-index="1" --></span>
+<span>- Travailler sur un ou plusieurs changements en parrallèle sans casser le projet.<!-- .element: class="fragment" data-fragment-index="2" --></span>
+<span>- Synchroniser tout ça a plusieurs<!-- .element: class="fragment" data-fragment-index="3" --></span>
+<span>- *Sans risques*<!-- .element: class="fragment" data-fragment-index="4" --></span>
+
+Note:
+L'objectif c'est de level up vos skills où que vous en soyez.
+
+---
+
+# lvl 1 : git sorcerer
+Terrain connu
 
 - Cloner : `git clone`
 - Commiter des fichiers après modifications : `git add && git commit`
 - Pousser des commits vers un repo distant : `git push`
 - Télécharger les commits du repo distant : `git pull`
 
---- 
-
-# level up : git mage
-
-## le coeur de git
- - chaines de commits et pointeurs 
- - les 3 états des fichiers
-  
 ---
 
-### Commits et pointeurs
- 
-Commit = reférence commit parent + changements (patch) + metadata
+## le coeur de git
+- chaines de commits
+- les 3 états des fichiers
+- commit
+
+---
+
+### 1 commit en détail
 
 ```
 commit bbd550e501503a9d580b33b2d867ee3eee133ae8 (origin/main, origin/HEAD)
@@ -64,87 +68,131 @@ index 3cb9172..63ddc4f 100644
 
 ```
 
-branche = pointeur vers un commit qui suit chaque nouveau commit
+Note:
+Commit = reférence commit parent + changements (patch) + metadata
 
 ---
 
 ### États des fichiers
 
-- commited : changements enregistrés dans un commit
-- staged : changements enregistrés pas encore commités : `git diff --staged`
+- Untracked: fichiers non suivis par git.
 - modified: changements pas encore sélectionnés pour un commit : `git diff`
+- staged : changements enregistrés pas encore commités : `git diff --staged`
+- commited : changements enregistrés dans un commit.
+
 
 ```
   Commited  ---(do work)--> modified ---(git add)---> staged
       ^--------------(git commit)-----------------------|
 ```
 
-#### Astuces
+----
+
+
+![](https://git-scm.com/book/en/v2/images/lifecycle.png)
+
+---
+
+### Rappels
+
++ Commitez souvent et petit (atomicité)
++ Ne poussez pas de code qui compile pas, sauf bonne raisons !
++ Les erreurs c'est pas grave: `git revert` est là.
+
+
+---
+
+### Astuces
 + Staging partiel : `git add -p`
++ combiner `add` et `commit`: `git commit -am`
 + Modifier un commit a postériori : `git commit --amend`
 
 ---
 
-## Manier git 
-  
-  - branches: univers parallèles 
-  - rebase: voyager dans le temps
-  - tags: faire des releases fiables
-  
+# level up : git mage
+
+- branches: univers parallèles
+- rebase: voyager dans le temps
+- tags: faire des releases fiables
+
+
+---
+
+
+### Branche
+
+pointeur vers un commit qui suit chaque nouveau commit
+
+```
+A---B---C---D---E---F  main
+```
+
+```
+A---B---C---D---E---F---G  main
+```
+
+
+---
+
 ### Branches
 
-Copie cachée du repo
 
 ```shell
-               X---Y---Z  feature
+               X---Y---Z   feature
              / 
     A---B---C---D---E---F  main
 ```
 
-- créer une branche : `git checkout -b turbo` alias `git branch turbo && git checkout turbo`.
-La branche se fait toujours a partir d'un commit.
-L'étiquette se met à jour avec chaque nouveau commit. 
++ créer une branche : `git checkout -b feature` alias `git branch feature && git checkout feature`.
++ La branche se fait toujours a partir d'un commit.
++ Le pointeur suivra les commits ultérieurs
+
+
 ---
+
+### Merge
 
 ```shell
                W---X---Y---Z
              /              \
-    A---B---C---D---E---F---WXYZ main, feature
+    A---B---C---D---E---F---WXYZ  main,feature
 ```
-Merger une branche : `git merge feature main`.
+Merger une branche : `git merge feature`.
+Attention : le merge se fait vers HEAD.
 
-=>  A vous d'essayer!
 
-::: notes
-Faites une branche et ajoutez votre nom au hello world! 
-Puis merge!
-:::
+<span>TP: où est la gare ?<!-- .element: class="fragment" data-fragment-index="1" --></span>
+
+Note:
+Faites une branche et ajoutez une phrase pour demandez ou est la gare, puis merge!
 
 ---
+
 ```shell
-                          X nom
+                          X feature
                          / 
     A---B---C---D---E---F  main
 ```
-Fast-forward merge: 
+Fast-forward merge:
 ```shell
-    A---B---C---D---E---F---X  main, nom
+    A---B---C---D---E---F---X  main,feature
 ```
 
 ---
 
-Détail : la branche se met a jour en fonction de votre checkout:
+Note : la branche se met a jour en fonction de votre checkout:
 ```shell
                W---X---Y---Z   O---P feature
              /              \ /
     A---B---C---D---E---F---WXYZ main
 ```
 
+
 ---
 
 ### Rebase
 
-- Rejouer l'historique d'une branche à partir d'un autre commit : 
+- Rejouer l'historique d'une branche à partir d'un autre commit :
 
 ```shell
                X---Y---Z  feature
@@ -158,46 +206,70 @@ Détail : la branche se met a jour en fonction de votre checkout:
     A---B---C---D---E---F  main
 ```
 
-::: notes
+Note:
 On peut rebase sur un commit directement.
 Vu que une branche n'est jamais qu'un pointeur vers un commit.
-:::
+
+
 ---
 
-- Refaire l'histoire avec rebase
+#### Refaire l'histoire avec rebase
 ```shell
                X---Y---Z  feature
              / 
     A---B---C---D---E---F  main
+```
 
-   git rebase -i <parent_du_dernier_commit_a_modifier>
-   git rebase -i C # ou HEAD~3
+`git rebase -i <parent_du_dernier_commit_a_modifier>`
 
 ```shell
                X  feature
              / 
     A---B---C---D---E---F  main
 ```
+
+Note:
+`git rebase -i C # ou HEAD~3`
+
+---
+
+Possiblités :
+
 - réordonner les commits
 - Supprimer des commits
 - changer le message de commit
 - altérer le commit (ajouter des choses ou le diviser)
 - fusionner des commits (squash ou fixup)
 
-Astuce : `HEAD~3`
+---
+
+Astuces :
+
+`HEAD~3` ou `main~10`
+
+`git commit --amend` == `git rebase -i HEAD^`
 
 => Attention à la mise a jour forcée!
-=> Experimentez sur la branche `deLorean`
-::: notes
-Préferer `git revert` si la branche est déjà poussée.
-git commit --amend peut être vu comme un rebase -i de HEAD^
-:::
+=> Experimentez sur la branche `prez/mess`
 
+Note:
+Préferer `git revert` si la branche est déjà poussée.
+  
+--- 
+
+Mais où suis-je ?
+
+- `git log` (`--graph --all`)
+- `git status`
+- `git show` : montrer les détails d'un commit
+
+
+---
 
 ### Tag
 
 Un tag est une simple étiquette vers un commit:
-git tag -a v2.1 -m "release sept 21" <commitRef>`
+`git tag -a v2.1 -m "release sept 21" <commitRef>`
 
 ```
 git show v2.1
@@ -216,88 +288,106 @@ Date:   Thu Sep 2 16:14:02 2021 +0200
     Merge branch 'feature/command'
 ```
 
+---
+
 # Level up : git wizzard
 
-## Astuces staging area
-`add && commit` -> `git commit -a` (ou `-p` pour faire du selectif) \
- => explorez les options !
++ bisect : trouver un commit problématique
+  `git bisect <dernier_bon_commit>`
 
-bisect : trouver un commit problématique
-`git bisect <dernier_bon_commit>`
- 
-=> essayez sur la branche `bisect`
+=> essayez sur la branche `broken`
 
 ---
 
 ## stash : Rapidement changer de contexte.
 
 - `git stash push` : changements stagés et non stagés mis de côté. \
-Astuce : ajoutez un message : `git stash push -m "fixing array oob #334"`
+  Astuce : ajoutez un message : `git stash push -m "fixing array oob #334"`
 - `git stash pop` : retirer et réappliquer la dernière entrée de la stash.
-- `git stash apply` : la même mais sans supprimer l'entrée dans la stash.
-- `git stash branch <branch_name>` : créer une branche avec le contenu de la dernière entrée. 
- 
-:::notes
- Possible d'avoir plusieurs entrées et de choisir.
-:::
 
 ---
 
- ## Mais où suis-je ?
- 
- - `git log` (`--graph --all`)
- - `git status`
- - `git show` : montrer les détails d'un commit
- 
---- 
+- `git stash apply` : comme pop mais sans supprimer l'entrée dans la stash.
+- `git stash branch <branch_name>` : créer une branche avec le contenu de la dernière entrée.
 
-## Astuces pour manipuler l'historique 
+Note:
+Possible d'avoir plusieurs entrées et de choisir.
 
 
-### reflog
+---
 
-"Oh la boulette !"
-Reflog référence tous les changements du pointeur HEAD.
+## Manipuler l'historique avec reflog
 
-Exemple :
+> "Oh la boulette !"
+
+Historique de tous les changements du pointeur HEAD.
+
+---
+
 ```shell
     A---B---C---D main
+```
 
- # drop du commit D:
+drop du commit D avec rebase:
+```
 git rebase -i HEAD~2
     A---B---C  main
 ```
 
 `git reflog`
 ```shell
-## REBASE drop de D:
 0b3a33c (HEAD -> main) HEAD@{0}: rebase (finish): returning to refs/heads/main
 0b3a33c (HEAD -> main) HEAD@{1}: rebase (start): checkout HEAD~2
 899c5a9 HEAD@{2}: commit: D
-0b3a33c (HEAD -> main) HEAD@{3}: commit: C
+0b3a33c HEAD@{3}: commit: C
 111723a HEAD@{4}: commit: B
 2233e43 HEAD@{5}: commit (initial): A
 ```
 
-`git reset 899c5a9`: les changements entre 899c5a9 et le résultat du rebase sont restaurés dans le répertoire de travail (unstaged).
-Pour restaurer le repo a l'état voulu : `git reset --hard 899c5a9` -> le commit D est restauré.
+---
 
-Rien n'est jamais perdu avec git (même si rebase avec des commits droppés).
+- `git reset 899c5a9`: les changements entre 899c5a9 et le résultat du rebase est restaurés dans le répertoire de travail (unstaged).
+- Pour restaurer le repo a l'état voulu : `git reset --hard 899c5a9` -> le commit D est restauré.
+
+- Rien n'est jamais perdu avec git (même si rebase avec des commits droppés).
+
+
+Experimentez !
 
 ---
 
- - cherry pick (range of commits)
- - submodules
- - hooks
- - conventionnal commits
+## Cherry-picking
+
+Recopier un commit sur la branche courrante :
+
+`git cherry-pick <refCommit>`
+
+- On peut aussi utiliser une série de commit contigus :
+  `git cherry pick <refPremierCommit>^..<refDernierCommit>`
 
 
-## Github: 
+Note:
+Ici on spécifie le commit parent du premier commit, car le range commence après. Parfois git est étrange!
+
+---
+
+## Github:
 - pull requests
-- issues 
+- issues
 - (Private vs Pub repo)
+
+---
+
+## Idées
+
+- submodules: repo dans un repo
+- hooks : voir dans `.git/hooks` Les hooks sont locaux.
+- conventionnal commits : https://www.conventionalcommits.org/en/v1.0.0/
+
+---
 
 ## Resources
 
+- `man git`
 - https://git-scm.com/docs (beaucoup de pages sont traduites en français)
 - https://www.atlassian.com/fr/git
