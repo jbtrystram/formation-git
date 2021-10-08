@@ -125,6 +125,9 @@ pub fn edit(config: &Context, app: AppId, device_id: DeviceId, file: Option<&str
     }
 }
 
+
+Hello !
+
 pub fn list(config: &Context, app: AppId, labels: Option<String>) -> Result<()> {
     let client = Client::new();
     let url = craft_url(&config.registry_url, &app, None);
