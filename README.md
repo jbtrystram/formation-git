@@ -13,8 +13,4 @@ cargo run
 # Slides 
 
 Les slides sont écrites en markdown dans le readme du dossier `support`.
-Pour un slide deck HTML avec pandoc : 
-
-```shell
-pandoc -t revealjs -V revealjs-url=https://unpkg.com/reveal.js@3.9.2/ -s support/README.md -o support/slides.html 
-```
+Pour un slide deck HTML : https://demo.hedgedoc.org/qRfbBmZ7R4Oa3ei6rYlPMQ?both
