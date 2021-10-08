@@ -20,44 +20,7 @@ use std::net::{Ipv4Addr, SocketAddr};
 
 const CLIENT_ID: &str = "drogue";
 
-pub fn login(
-    api_endpoint: Url,
-    refresh_token_val: Option<&str>,
-    context_name: config::ContextId,
-) -> Result<Context> {
-    log::info!("Starting authentication process with {}", api_endpoint);
 
-    let (sso_url, registry_url) = util::get_drogue_services_endpoints(api_endpoint.clone())?;
-    let (auth_url, token_url) = util::get_auth_and_tokens_endpoints(sso_url)?;
-
-    let token = match refresh_token_val {
-        Some(refresh_token_val) => exchange_token(
-            auth_url.clone(),
-            token_url.clone(),
-            &oauth2::RefreshToken::new(refresh_token_val.to_string()),
-        )?,
-        None => get_token(auth_url.clone(), token_url.clone())?,
-    };
-
-    let token_exp_date = calculate_token_expiration_date(&token)?;
-
-    log::info!("Token successfully obtained.");
-    log::debug!("{:?}", token);
-
-    let config = Context {
-        name: context_name,
-        drogue_cloud_url: api_endpoint,
-        default_app: None,
-        default_algo: None,
-        token,
-        token_url,
-        auth_url,
-        registry_url,
-        token_exp_date,
-    };
-
-    Ok(config)
-}
 
 fn get_token(auth_url: Url, token_url: Url) -> Result<BasicTokenResponse> {
     log::debug!("Using auth url : {}", auth_url);
