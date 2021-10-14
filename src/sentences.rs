@@ -10,6 +10,7 @@ pub struct Sentences {
 pub enum Language {
     French,
     English,
+    Portugese,
 }
 
 impl FromStr for Language {
