@@ -20,6 +20,7 @@ impl FromStr for Language {
         match s {
             "fr" | "french" | "French" => Ok(Language::French),
             "en" | "english" | "English" => Ok(Language::English),
+            "pt" | "portuguese" | "Portuguese" => Ok(Language::Portugese),
             _ => Err("no match"),
         }
     }
@@ -40,6 +41,12 @@ impl Sentences {
                 food: "Je suis affamé ! Connaissez vous de bons restaurants dans le quartier ?"
                     .to_string(),
                 thanks: "Merci pour votre aide précieuse.".to_string(),
+            },
+            Language::Portugese => Sentences {
+                hello: "Olá ! Eu sou um viajante! Como você está ?".to_string(),
+                bye: "Até logo ! Bye Bye !".to_string(),
+                food: "Estou com fome ! Existe um bom restaurante por perto?".to_string(),
+                thanks: "Muito obrigado por me ajudar!".to_string(),
             },
         }
     }
