@@ -21,7 +21,7 @@ Avec du rust en bonus !
 
 <span>- Conserver tout l'historique d'évolution d'une base de code.<!-- .element: class="fragment" data-fragment-index="1" --></span>
 <span>- Travailler sur un ou plusieurs changements en parrallèle sans casser le projet.<!-- .element: class="fragment" data-fragment-index="2" --></span>
-<span>- Synchroniser tout ça a plusieurs<!-- .element: class="fragment" data-fragment-index="3" --></span>
+<span>- Synchroniser tout ça à plusieurs<!-- .element: class="fragment" data-fragment-index="3" --></span>
 <span>- *Sans risques*<!-- .element: class="fragment" data-fragment-index="4" --></span>
 
 Note:
@@ -293,9 +293,15 @@ Date:   Thu Sep 2 16:14:02 2021 +0200
 # Level up : git wizzard
 
 + bisect : trouver un commit problématique
-  `git bisect <dernier_bon_commit>`
+```
+git bisect start
+git bisect bad
+git bisect good <dernier_bon_commit_connu> # allez loin !
+git bisct good
+```
 
-=> essayez sur la branche `broken`
+=> essayez en pilote automatique !
+`git bisect run cargo check`
 
 ---
 
@@ -356,6 +362,21 @@ Experimentez !
 
 ---
 
+## Patches et diffs
+
+Collaboration a la mode kernel : envoyons nous des patches !
+`git format-patch <since>`
+`git format-patch <range>`
+
+
+1 fichier par commit
+appliqués avec `git am`
+
+ou
+`git diff > file`  puis `git apply file`
+
+---
+
 ## Cherry-picking
 
 Recopier un commit sur la branche courrante :
@@ -371,14 +392,45 @@ Ici on spécifie le commit parent du premier commit, car le range commence aprè
 
 ---
 
-## Github:
-- pull requests
-- issues
-- (Private vs Pub repo)
+
+## Customise ton git
+
+```
+# Aliases pour des sous commandes
+git config --global alias.co checkout
+git config --global alias.ci commit
+git config --global alias.s status
+
+# Ou avec des options 
+git config --global alias.lg "log --pretty=format:\"%h - %an : %s\""
+```
 
 ---
 
-## Idées
+## Github
+
+fork -> branche -> pull request
+CI
+
+---
+
+- fermer une issue avec so numéro dans un commit :
+```
+commit 494b15ef12771588bc2b07d6317f47eca8455823
+Author: jbtrystram <jbtrystram@redhat.com>
+Date:   Wed Sep 29 10:03:28 2021 +0200
+
+    Add delete callback on app list. Fixes #124
+```
+
+`.diff` ou `.patch` sur les PR.
+
+---
+
+
+## level 99 dark Arcanist
+
+(features situationnelles)
 
 - submodules: repo dans un repo
 - hooks : voir dans `.git/hooks` Les hooks sont locaux.
