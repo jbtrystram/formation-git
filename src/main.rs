@@ -42,6 +42,6 @@ fn main() {
         }
         SubCommand::Thanks => {
             println!("Thanks you so much for helping me !");
-        }
+        
     }
 }
