@@ -20,6 +20,8 @@ enum SubCommand {
     Food,
     /// Say thanks if someone was nice
     Thanks,
+    /// Ask for a direction to the train station
+    Station,
 }
 
 fn main() {
@@ -42,6 +44,9 @@ fn main() {
         }
         SubCommand::Thanks => {
             println!("Thanks you so much for helping me !");
-        
+        }
+        SubCommand::Station => {
+            println!("Can  me towards the train station");
+        }
     }
 }
