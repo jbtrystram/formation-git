@@ -1,6 +1,15 @@
 # Formation Git : support
 
-# Application Rust
+
+# Toolchain rust
+
+https://rustup.rs/
+
+Pour fedora: 
+`sudo dnf install rust cargo
+`
+
+## Application Rust
 
 L'application traveller ici sert uniquement à démontrer et à expérimenter 
 avec différentes fonctionnalités de git.
